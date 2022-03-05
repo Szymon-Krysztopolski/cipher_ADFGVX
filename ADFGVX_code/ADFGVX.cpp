@@ -16,14 +16,21 @@ const char main_table[n][n]={
     {'B','K','Y','9','P','G'}  //X
 };
 
-char find(char c){
-    char x;
+QString* find(char c){
+    QString* tmp=new QString;
     for(int i=0;i<n;i++) for(int j=0;j<n;j++){
-        if(c==main_table[i][j])
-            x=title_table[j];
+        if(c==main_table[i][j]){
+            tmp->append(title_table[j]);
+            tmp->append(title_table[i]);
+        }
     }
+    return tmp;
+}
 
-    return x;
+int* order(QString key){
+    int *ord = new int(key.size());
+    for(int i=0;i<key.size();i++) ord[i]=i;
+    return ord;
 }
 
 QString ADFGVX_code(QString text, QString key){
@@ -31,37 +38,42 @@ QString ADFGVX_code(QString text, QString key){
         return QString("error");
     text=text.toUpper();
 
-    string cryptogram;
-    cryptogram.resize(text.size());
+    QString *QCryptogram = new QString;
 
     for(int i=0;i<text.size();i++){
-        cryptogram[i]=find(text[i].toLatin1());
+        QCryptogram->append(*find(text[i].toLatin1()));
+        qDebug()<<*find(text[i].toLatin1());
     }
-    QString QCryptogram=QString::fromStdString(cryptogram);
-    QCryptogram=QCryptogram.toUpper();
-
 
     QVector<QString*> vec;
-    QString tmp[2]={text,QCryptogram};
 
 
-    int i=0,j=0,s=0;
+
+    int i=0,j=0;
     while(i<2*text.size()){
         if(i%key.size()==0){
             vec.push_back(new QString[key.size()]);
             j=0;
         }
-        qDebug()<<i<<" "<<j<<" "<<s<<" "<<key.size();
-        vec[vec.size()-1][j]=tmp[s].at(i/2);
+        //qDebug()<<i<<" "<<j<<" "<<s<<" "<<key.size();
+        vec[vec.size()-1][j]=QCryptogram[i];
 
-        s^=1;
         j++;
         i++;
     }
     while(i++%key.size()!=0)vec[vec.size()-1][j++]='-';
     for(int i=0;i<vec.size();i++) for(int j=0;j<key.size();j++) qDebug()<<vec[i][j];
 
-    return QCryptogram;
+    QString result;
+    int *ord=order(key);
+    for(int i=0;i<key.size();i++){
+        for(int j=0;j<vec.size();j++){
+            result.append(vec[j][ord[i]]);
+        }
+    }
+    qDebug()<<result<<" "<<vec.size()<<" "<<key.size();
+
+    return result;
 }
 
 QString ADFGVX_decode(QString cipher, QString key){

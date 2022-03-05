@@ -51,14 +51,15 @@ QString ADFGVX_code(QString text, QString key){
             vec.push_back(new QString[key.size()]);
             j=0;
         }
-        //qDebug()<<i<<" "<<j<<" "<<s<<" "<<key.size();
+        qDebug()<<i<<" "<<j<<" "<<s<<" "<<key.size();
         vec[vec.size()-1][j]=tmp[s].at(i/2);
 
         s^=1;
         j++;
         i++;
     }
-    //for(int i=0;i<vec.size();i++) for(int j=0;j<key.size();j++) qDebug()<<vec[i][j];
+    while(i++%key.size()!=0)vec[vec.size()-1][j++]='-';
+    for(int i=0;i<vec.size();i++) for(int j=0;j<key.size();j++) qDebug()<<vec[i][j];
 
     return QCryptogram;
 }

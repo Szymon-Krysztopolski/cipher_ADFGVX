@@ -24,6 +24,7 @@ QString find(char c){
             tmp.append(title_table[i]);
         }
     }
+    if(tmp.isEmpty()) tmp="??";
     return tmp;
 }
 
@@ -37,7 +38,7 @@ QChar find_2(QChar c1, QChar c2){
         if(w==title_table[i]) y=i;
     }
     if (x==-1 || y==-1)
-        return QChar('-');
+        return QChar('?');
     return QChar(main_table[y][x]);
 }
 
@@ -105,7 +106,7 @@ QString ADFGVX_code(QString text, QString key){
 }
 
 QString ADFGVX_decode(QString cipher, QString key){
-    if(cipher.isEmpty() || key.isEmpty() || cipher.size()%key.size()!=0 || cipher.size()%2!=0)
+    if(cipher.isEmpty() || key.isEmpty() || cipher.size()%key.size()!=0)
         return QString("error");
     cipher=cipher.toUpper();
 

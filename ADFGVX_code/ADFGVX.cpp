@@ -16,12 +16,12 @@ const char main_table[n][n]={
     {'B','K','Y','9','P','G'}  //X
 };
 
-QString* find(char c){
-    QString* tmp=new QString;
+QString find(char c){
+    QString tmp;
     for(int i=0;i<n;i++) for(int j=0;j<n;j++){
         if(c==main_table[i][j]){
-            tmp->append(title_table[j]);
-            tmp->append(title_table[i]);
+            tmp.append(title_table[j]);
+            tmp.append(title_table[i]);
         }
     }
     return tmp;
@@ -72,7 +72,7 @@ QString ADFGVX_code(QString text, QString key){
     QVector<QChar*> vec;
 
     for(int i=0;i<text.size();i++){
-        QCryptogram.append(*find(text[i].toLatin1()));
+        QCryptogram.append(find(text[i].toLatin1()));
         //qDebug()<<*find(text[i].toLatin1());
     }
 
@@ -105,16 +105,15 @@ QString ADFGVX_code(QString text, QString key){
 }
 
 QString ADFGVX_decode(QString cipher, QString key){
-    if(cipher.isEmpty() || key.isEmpty() || cipher.size()%key.size()!=0)
+    if(cipher.isEmpty() || key.isEmpty() || cipher.size()%key.size()!=0 || cipher.size()%2!=0)
         return QString("error");
     cipher=cipher.toUpper();
 
     QString QCryptogram, result;
-    QVector<QChar*> vec;
+
     int *ord=order(key);
     int h=cipher.size()/key.size();
-
-    for(int i=0;i<h;i++) vec.push_back(new QChar[key.size()]);
+    QChar vec[key.size()][h];
 
     int k=0;
     for(int j=0;j<key.size();j++) for(int i=0;i<h;i++) {
@@ -125,7 +124,7 @@ QString ADFGVX_decode(QString cipher, QString key){
     for(int i=0;i<h;i++) for(int j=0;j<key.size();j++){
         QCryptogram.append(vec[j][i]);
     }
-    qDebug()<<QCryptogram<<QCryptogram.size();
+    //qDebug()<<QCryptogram<<QCryptogram.size();
 
     int i=0;
     while(i<QCryptogram.size()){
@@ -134,7 +133,6 @@ QString ADFGVX_decode(QString cipher, QString key){
         i+=2;
     }
 
-    vec.clear();
     delete [] ord;
     return result;
 }

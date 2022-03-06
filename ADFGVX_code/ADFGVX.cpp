@@ -28,7 +28,7 @@ QString* find(char c){
 }
 
 int* order(QString key){
-    int *ord = new int(key.size());
+    int *ord = new int[key.size()];
     for(int i=0;i<key.size();i++) ord[i]=i;
     return ord;
 }
@@ -38,16 +38,13 @@ QString ADFGVX_code(QString text, QString key){
         return QString("error");
     text=text.toUpper();
 
-    QString *QCryptogram = new QString;
-
-    for(int i=0;i<text.size();i++){
-        QCryptogram->append(*find(text[i].toLatin1()));
-        qDebug()<<*find(text[i].toLatin1());
-    }
-
+    QString QCryptogram, result;
     QVector<QString*> vec;
 
-
+    for(int i=0;i<text.size();i++){
+        QCryptogram.append(*find(text[i].toLatin1()));
+        //qDebug()<<*find(text[i].toLatin1());
+    }
 
     int i=0,j=0;
     while(i<2*text.size()){
@@ -62,17 +59,17 @@ QString ADFGVX_code(QString text, QString key){
         i++;
     }
     while(i++%key.size()!=0)vec[vec.size()-1][j++]='-';
-    for(int i=0;i<vec.size();i++) for(int j=0;j<key.size();j++) qDebug()<<vec[i][j];
+    //for(int i=0;i<vec.size();i++) for(int j=0;j<key.size();j++) qDebug()<<vec[i][j];
 
-    QString result;
     int *ord=order(key);
     for(int i=0;i<key.size();i++){
         for(int j=0;j<vec.size();j++){
             result.append(vec[j][ord[i]]);
         }
     }
-    qDebug()<<result<<" "<<vec.size()<<" "<<key.size();
+    //qDebug()<<result<<" "<<vec.size()<<" "<<key.size();
 
+    vec.clear();
     return result;
 }
 

@@ -24,7 +24,7 @@ QString find(char c){
             tmp.append(title_table[i]);
         }
     }
-    if(tmp.isEmpty()) tmp=QString(QChar(c));
+    //if(tmp.isEmpty()) tmp=QString(QChar(c));
     return tmp;
 }
 
@@ -65,6 +65,12 @@ int* order(QString key){
     return ord;
 }
 
+bool valid(QChar c){
+    if((c>='A' && c<='Z') || (c>='0' && c<='9'))
+        return true;
+    else return false;
+}
+
 QString ADFGVX_code(QString text, QString key){
     if(text.isEmpty() || key.isEmpty())
         return QString("error");
@@ -93,34 +99,63 @@ QString ADFGVX_code(QString text, QString key){
     while(i++%key.size()!=0)vec[vec.size()-1][j++]='-';
     //for(int i=0;i<vec.size();i++) for(int j=0;j<key.size();j++) qDebug()<<vec[i][j];
 
+    QString QCryptogram1;
+
     int *ord=order(key);
     for(int i=0;i<key.size();i++){
         for(int j=0;j<vec.size();j++){
-            result.append(vec[j][ord[i]]);
+            QCryptogram1.append(vec[j][ord[i]]);
         }
     }
     //qDebug()<<result<<" "<<vec.size()<<" "<<key.size();
-
+    QChar c;
+    for(int i=0;i<QCryptogram1.size();i++){
+        if(valid(QCryptogram1[i]) && i+1<QCryptogram1.size()){
+            c=QCryptogram1[i];
+            while(!(valid(QCryptogram1[i+1]))){
+                //result.append(QCryptogram1[i++]);
+                i++;
+            }
+            result.append(find_2(c,QCryptogram1[i+1]));
+            i++;
+        }
+    }
     vec.clear();
     delete [] ord;
     return result;
 }
 
 QString ADFGVX_decode(QString cipher, QString key){
-    if(cipher.isEmpty() || key.isEmpty() || cipher.size()%key.size()!=0)
+    if(cipher.isEmpty() || key.isEmpty())
         return QString("error");
     cipher=cipher.toUpper();
 
-    QString QCryptogram, result;
+    QString QCryptogram, QCryptogram1, result;
     int *ord=order(key);
-    int h=cipher.size()/key.size();
-    //if(h==0)h=1;
+    int h=0;
+
+    for(int i=0;i<cipher.size();i++){
+        if(valid(cipher[i])){
+            QCryptogram1.append(find(cipher[i].toLatin1()));
+        }
+    }
+    int mod=QCryptogram1.size()%key.size();
+    //qDebug()<<QCryptogram1;
+
+    h=QCryptogram1.size()/key.size();
+    if(mod!=0)h++;
+
     QChar vec[key.size()][h];
+    //qDebug()<<key.size()<<h;
 
     int k=0;
     for(int j=0;j<key.size();j++) for(int i=0;i<h;i++) {
-        vec[ord[j]][i]=cipher[k++];
-        //qDebug()<<vec[j][i]<<j<<i;
+        if(mod==0 || !(i==h-1 && ord[j]>=mod)){
+            vec[ord[j]][i]=QCryptogram1[k++];
+        } else {
+            vec[ord[j]][i]='-';
+        }
+        //qDebug()<<vec[ord[j]][i]<<j<<i;
     }
 
     for(int i=0;i<h;i++) for(int j=0;j<key.size();j++){
@@ -128,13 +163,15 @@ QString ADFGVX_decode(QString cipher, QString key){
     }
     //qDebug()<<QCryptogram<<QCryptogram.size();
 
-    int i=0;
-    while(i<QCryptogram.size()){
-        if(QCryptogram[i]>='A' && QCryptogram[i]<='Z' && i+1<QCryptogram.size()) {
-            result.append(find_2(QCryptogram[i],QCryptogram[i+1]));
-            i+=2;
-        } else {
-            if(QCryptogram[i]!='-') result.append(QCryptogram[i]);
+    QChar c;
+    for(int i=0;i<QCryptogram.size();i++){
+        if(valid(QCryptogram[i]) && i+1<QCryptogram.size()){
+            c=QCryptogram[i];
+            while(!(valid(QCryptogram[i+1]))){
+                i++;
+            }
+            result.append(find_2(c,QCryptogram[i+1]));
+            //qDebug()<<find_2(c,QCryptogram[i+1]);
             i++;
         }
     }

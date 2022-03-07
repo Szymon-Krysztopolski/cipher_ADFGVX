@@ -138,7 +138,6 @@ QString ADFGVX_decode(QString cipher, QString key){
             i++;
         }
     }
-
     delete [] ord;
     return result;
 }

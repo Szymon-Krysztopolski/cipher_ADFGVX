@@ -1,0 +1,26 @@
+_Sfile1.txt
+_Sfile2.txt
+_Sfile3.txt
+
+_Dfile1.txt		qwerty
+_Dfile2.txt		abacki
+_Dfile3.txt		algorytm
+
+
+
+teksty:
+Ala ma kota
+
+Cryptography prior to the modern age was effectively synonymous with encryption, converting information from a readable state to unintelligible nonsense.
+
+The growth of cryptographic technology has raised a number of legal issues in the Information Age. Cryptography's potential for use as a tool for espionage and sedition has led many governments to classify it as a weapon and to limit or even prohibit its use and export.
+
+---
+iso
+FDAFFF AFF-V- DFFAF-XXF
+
+crypt
+FXAAVAXXVXAVFFAFFAX-AXXFF VDAAXADAAF XFF-A XAA-F-D-V- AFFFA-VDVVA-AA- FAX-F-D-X- XFF-D-G-F- DDXAFDFDA-ADFDXFAXD-FADA- GVFFXFVGFAXVFVAFFFAV XFD-DVX-DA DAVD,VFFF-AAXA-FXDV-FAXF- FVADFDFXAXAFFADXAAXV DDAFFVAFA-DAVDVFAXF-FFFD- FFA-DAA-AV F-F-- AFAAAFD-AVX-FFD-DFA- GFFDFXFAXF XFF-A VDDDDDVXDXX-VFADDDDFAXA-FVADAA FVFAFDF-VGV.FAD-AFG-
+
+oldbook
+AV-FDAX AVAFX-XXAAF-XD DF-F--A AAFFAFFDVXV-AXADFFVAXXX-FXAA AAXDVXVD-FFFFFFAAXXAA FF-AGFV FVFAG-ADDFD-AF ---F--F VAVAA-VDAAV-FX DF-F--A A-DDF-DAX-X-AF FGGAV-DDGFF-DV VF-D--D AV-FDAX VAD-FAD-AFF-DAF-FVA-DFF-DFXV XX.FDAF AAF'AFFXVXV-AXAFFFVGXXXFFXAA FXDAVADD-XFFXF-FD-VAF FA-DAAF FG-VDAV FG-F--F ---F--F F-A-A-F-A-F-XD FA-DAAF FFAGFDDF-AAXVV-XF-DDX VF-FVFF AD-DF-DF-FXVVD-FA-GDF FF-AGFV AD-DVFA F-F-F-V-F-V-AX FFV-AAF-DVG-XAA-XVX-AAF-XADF FA-F--X DD-AF-GD-AGXFD-FF-FFF FX-D--D FG-F--F ---F--F AFDFV-DAFVF-XX VF-FVFF FA-F--X D-DFD-DXA-V-AD AA-F--A A-X-F-A-D-A-DV AA-AD-VD-XDFAX-FD-VAX FX-DGFD FG-VDAV VF-FVFF GXXAA-AAVFX.DF

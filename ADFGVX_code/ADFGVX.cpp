@@ -3,7 +3,7 @@
 #include "mainwindow.h"
 using namespace std;
 
-const int n=6;
+#define n 6
 
 const char title_table[]={'A','D','F','G','V','X'};
 const char main_table[n][n]={
@@ -29,6 +29,7 @@ QString find(char c){
 }
 
 QChar find_2(QChar c1, QChar c2){
+
     char k=c1.toLatin1();
     char w=c2.toLatin1();
     int x=-1,y=-1;
@@ -129,9 +130,12 @@ QString ADFGVX_decode(QString cipher, QString key){
 
     int i=0;
     while(i<QCryptogram.size()){
-        if(QCryptogram[i]!='-')
+        if(QCryptogram[i]>='A' && QCryptogram[i]<='Z') {
             result.append(find_2(QCryptogram[i],QCryptogram[i+1]));
-        i+=2;
+            i+=2;
+        } else {
+            i++;
+        }
     }
 
     delete [] ord;

@@ -24,7 +24,7 @@ QString find(char c){
             tmp.append(title_table[i]);
         }
     }
-    if(tmp.isEmpty()) tmp="??";
+    if(tmp.isEmpty()) tmp=QString(QChar(c));
     return tmp;
 }
 
@@ -79,12 +79,12 @@ QString ADFGVX_code(QString text, QString key){
     }
 
     int i=0,j=0;
-    while(i<2*text.size()){
+    while(i<QCryptogram.size()){
         if(i%key.size()==0){
             vec.push_back(new QChar[key.size()]);
             j=0;
         }
-        //qDebug()<<i<<" "<<j<<" "<<s<<" "<<key.size();
+        //qDebug()<<i<<j<<key.size();
         vec[vec.size()-1][j]=QCryptogram[i];
 
         j++;
@@ -112,9 +112,9 @@ QString ADFGVX_decode(QString cipher, QString key){
     cipher=cipher.toUpper();
 
     QString QCryptogram, result;
-
     int *ord=order(key);
     int h=cipher.size()/key.size();
+    //if(h==0)h=1;
     QChar vec[key.size()][h];
 
     int k=0;
@@ -130,10 +130,11 @@ QString ADFGVX_decode(QString cipher, QString key){
 
     int i=0;
     while(i<QCryptogram.size()){
-        if(QCryptogram[i]>='A' && QCryptogram[i]<='Z') {
+        if(QCryptogram[i]>='A' && QCryptogram[i]<='Z' && i+1<QCryptogram.size()) {
             result.append(find_2(QCryptogram[i],QCryptogram[i+1]));
             i+=2;
         } else {
+            if(QCryptogram[i]!='-') result.append(QCryptogram[i]);
             i++;
         }
     }

@@ -12,7 +12,6 @@ Zaimplamentowana przeze mnie wersja wykorzystuje tablice zawierającą wielkie l
 </p>
 
 ## Proces szyfrowania
----
 Pierwszym krokiem jest znalezienie każdej litery alfaberu z tekstu jawnego i zakodowanie go za pomocą nazw kolumn i wierszy. Pierwszą literą w zaimplementowanej wersji będzie ta wywodząca się od kolumny.
 
 Następnie tworzona jest nowa macierz. Tym razem obiektem zainteresowania są tylko nazwy kolumn będące kolejnymi literami podanego klucza. Otrzymany w poprzednim kroku kryptogram wpisujemy wiersz po wierszu. Puste miejsca wypełnione zostaną znakiem '-'.
